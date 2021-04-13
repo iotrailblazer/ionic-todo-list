@@ -7,6 +7,14 @@ import { ModalController } from '@ionic/angular';
   styleUrls: ['./add-new-task.page.scss'],
 })
 export class AddNewTaskPage implements OnInit {
+  categories = ['work', 'personal', 'home'];
+
+  taskName
+  taskDate
+  taskPriority
+  taskCategory
+
+  taskObject
 
   constructor(public modalCtrl: ModalController) { }
 
@@ -14,7 +22,20 @@ export class AddNewTaskPage implements OnInit {
   }
 
 async dismiss(){
-  await this.modalCtrl.dismiss()
+  await this.modalCtrl.dismiss(this.taskObject)
+}
+
+selectedCategory(index){
+  this.taskCategory = this.categories[index];
+}
+
+AddTask(){
+  this.taskObject = ({itemName: this.taskName,
+                      itemDueDate: this.taskDate,
+                      itemPriority: this.taskPriority,
+                      itemCategory: this.taskCategory})
+
+  this.dismiss();
 }
 
 }

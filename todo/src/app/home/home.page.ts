@@ -8,31 +8,7 @@ import { AddNewTaskPage } from '../add-new-task/add-new-task.page';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  todoList = [{
-    itemName : 'Coding',
-    itemDueDate : '13-10-21',
-    itemPriority : 'high',
-    itemCategory : 'word'
-  },
-  {
-    itemName : 'Design',
-    itemDueDate : '28-10-21',
-    itemPriority : 'low',
-    itemCategory : 'work'
-  },
-  {
-    itemName : 'Shopping',
-    itemDueDate : '30-10-21',
-    itemPriority : 'middle',
-    itemCategory : 'personal'
-  },
-  {
-    itemName : 'Workout',
-    itemDueDate : '25-10-21',
-    itemPriority : 'high',
-    itemCategory : 'personal'
-  },
-]
+  todoList = []
 
 today: number = Date.now();
 
@@ -42,6 +18,17 @@ today: number = Date.now();
     const modal = await this.modalCtrl.create({
       component: AddNewTaskPage
     })
+
+    modal.onDidDismiss().then(newtaskObj => {
+      console.log(newtaskObj.data);
+      this.todoList.push(newtaskObj.data)
+    })
+
     return await modal.present()
   }
+
+  delete(index){
+    this.todoList.splice(index,1);
+  }
+
 }
